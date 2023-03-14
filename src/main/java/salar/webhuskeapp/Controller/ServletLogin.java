@@ -39,6 +39,9 @@ public class ServletLogin extends HttpServlet {
             request.setAttribute("besked", "Forkert kodeord!");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
+        HttpSession session = request.getSession();
+        session.setAttribute("person", person);
+        request.getRequestDispatcher("WEB-INF/brugerside.jsp").forward(request, response);
 
 
     }
