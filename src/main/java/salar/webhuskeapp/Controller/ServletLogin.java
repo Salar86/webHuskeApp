@@ -25,5 +25,21 @@ public class ServletLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String navn = request.getParameter("uName");
+        String kode = request.getParameter("passW");
+        System.out.println(navn+" "+kode);
+
+        Person person = Facade.getPerson(navn);
+
+        if (person == null) {
+            request.setAttribute("besked", "Brugeren findes ikke!");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+        if (!person.getKode().equalsIgnoreCase(kode)) {
+            request.setAttribute("besked", "Forkert kodeord!");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+
+
     }
 }
